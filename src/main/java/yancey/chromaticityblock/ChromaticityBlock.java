@@ -1,5 +1,6 @@
 package yancey.chromaticityblock;
 
+import com.google.common.collect.ImmutableSet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -7,10 +8,12 @@ import net.fabricmc.fabric.impl.item.group.ItemGroupExtensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.datafixer.TypeReferences;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
 import yancey.chromaticityblock.block.BlockChromaticity;
 import yancey.chromaticityblock.block.entity.BlockEntityChromaticity;
@@ -25,7 +28,9 @@ public class ChromaticityBlock implements ModInitializer {
     public static final Block CHROMATICITY_BLOCK = new BlockChromaticity(FabricBlockSettings.of(Material.METAL)
             .strength(-1, 3600000).dropsNothing().nonOpaque());
     public static final Item CHROMATICITY_BLOCK_ITEM = new ItemBlockChromaticity();
-    public static BlockEntityType<BlockEntityChromaticity> CHROMATICITY_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(BlockEntityChromaticity::new, CHROMATICITY_BLOCK).build();
+    public static BlockEntityType<BlockEntityChromaticity> CHROMATICITY_BLOCK_ENTITY = new BlockEntityType<>(
+            BlockEntityChromaticity::new, ImmutableSet.of(CHROMATICITY_BLOCK),
+            Util.getChoiceType(TypeReferences.BLOCK_ENTITY, "chromaticity_block"));
 
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(ID_ITEM_GROUP)
             .icon(() -> new ItemStack(CHROMATICITY_BLOCK_ITEM))

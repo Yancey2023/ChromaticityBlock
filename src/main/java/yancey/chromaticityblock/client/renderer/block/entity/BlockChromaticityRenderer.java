@@ -1,14 +1,17 @@
 package yancey.chromaticityblock.client.renderer.block.entity;
 
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.shape.VoxelShapes;
 import yancey.chromaticityblock.block.entity.BlockEntityChromaticity;
+
+import javax.swing.*;
 
 public class BlockChromaticityRenderer extends BlockEntityRenderer<BlockEntityChromaticity> {
 
@@ -25,10 +28,45 @@ public class BlockChromaticityRenderer extends BlockEntityRenderer<BlockEntityCh
     }
 
     public static void render(int color, MatrixStack matrices, VertexConsumerProvider vertexConsumers) {
-        VoxelShapes.fullCube().forEachBox((minX, minY, minZ, maxX, maxY, maxZ) -> WorldRenderer.renderFilledBox(matrices,
+        RenderLayer.getBlockLayers()
+        VoxelShapes.fullCube().forEachBox((minX, minY, minZ, maxX, maxY, maxZ) -> renderFilledBox(matrices,
                 vertexConsumers.getBuffer(RenderLayer.getDebugFilledBox()),
                 minX, minY, minZ, maxX, maxY, maxZ,
                 ((color >> 16) & 0xFF) / 255F, ((color >> 8) & 0xFF) / 255F, (color & 0xFF) / 255F, ((color >> 24) & 0xFF) / 255F));
+    }
+
+    public static void renderFilledBox(MatrixStack matrices, VertexConsumer vertexConsumer, float minX, float minY, float minZ, float maxX, float maxY, float maxZ, float red, float green, float blue, float alpha) {
+        Matrix4f matrix4f = matrices.peek().getModel();
+        vertexConsumer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, minY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, maxY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, maxY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, maxY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, minY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, minY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, minY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, minY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, maxY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, maxY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, minY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, maxY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, minY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, minY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, minY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, minY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, maxY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, maxY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, minX, maxY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, maxY, minZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).next();
+        vertexConsumer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).next();
     }
 
 }
