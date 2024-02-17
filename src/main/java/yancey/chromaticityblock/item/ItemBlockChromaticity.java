@@ -22,7 +22,7 @@ public class ItemBlockChromaticity extends BlockItem {
         int color = getColorFromItemStack(stack);
         return new LiteralText("")
                 .append(withColor(super.getName(stack).copy(), 0xFF000000 | color))
-                .append(new LiteralText(" #" + Integer.toHexString(color).toUpperCase()));
+                .append(String.format("#%08X", color));
     }
 
     public static Text withColor(MutableText text, int color) {
@@ -40,4 +40,13 @@ public class ItemBlockChromaticity extends BlockItem {
         }
         return color;
     }
+
+    public static ItemStack createWithColor(int color) {
+        ItemStack itemStack = new ItemStack(ChromaticityBlock.CHROMATICITY_BLOCK_ITEM);
+        NbtCompound nbtCompound = itemStack.getOrCreateSubTag("BlockEntityTag");
+        nbtCompound.putString("id", ChromaticityBlock.ID_CHROMATICITY_BLOCK_ENTITY.toString());
+        nbtCompound.putInt(BlockEntityChromaticity.KEY_COLOR, color);
+        return itemStack;
+    }
+
 }

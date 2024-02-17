@@ -21,6 +21,9 @@
       "yancey.chromaticityblock.ChromaticityBlock"
     ]
   },
+  "mixins": [
+    "chromaticityblock.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",

@@ -1,17 +1,16 @@
 package yancey.chromaticityblock.block.entity;
 
+import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.util.registry.Registry;
 import yancey.chromaticityblock.ChromaticityBlock;
 import yancey.chromaticityblock.item.ItemBlockChromaticity;
 
-public class BlockEntityChromaticity extends BlockEntity {
+public class BlockEntityChromaticity extends BlockEntity implements BlockEntityClientSerializable {
 
     public static final String KEY_COLOR = "color";
-    private Integer color = null;
+    private int color = 0xFF00FF00;
 
     public BlockEntityChromaticity() {
         super(ChromaticityBlock.CHROMATICITY_BLOCK_ENTITY);
@@ -20,9 +19,6 @@ public class BlockEntityChromaticity extends BlockEntity {
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        if (color == null) {
-            color = 0xFF00FF00;
-        }
         nbt.putInt(KEY_COLOR, color);
         return nbt;
     }
@@ -33,7 +29,7 @@ public class BlockEntityChromaticity extends BlockEntity {
         color = ItemBlockChromaticity.getColorFromNBT(tag);
     }
 
-    public Integer getColor() {
+    public int getColor() {
         return color;
     }
 
@@ -45,12 +41,26 @@ public class BlockEntityChromaticity extends BlockEntity {
     }
 
     @Override
-    public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        return new BlockEntityUpdateS2CPacket(getPos(), Registry.BLOCK_ENTITY_TYPE.getRawId(getType()), writeNbt(new NbtCompound()));
-    }
-
-    @Override
     public NbtCompound toInitialChunkDataNbt() {
         return writeNbt(new NbtCompound());
     }
+
+    @Override
+    public void fromClientTag(NbtCompound tag) {
+        fromTag(getCachedState(), tag);
+    }
+
+    @Override
+    public NbtCompound toClientTag(NbtCompound tag) {
+        return toInitialChunkDataNbt();
+    }
+
+    public static int getColorFromBlockEntity(BlockEntity blockEntity) {
+        int color = 0xFF00FF00;
+        if (blockEntity instanceof BlockEntityChromaticity) {
+            color = ((BlockEntityChromaticity) blockEntity).getColor();
+        }
+        return color;
+    }
+
 }

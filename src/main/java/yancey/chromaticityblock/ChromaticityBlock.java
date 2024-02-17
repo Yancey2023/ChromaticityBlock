@@ -26,7 +26,7 @@ public class ChromaticityBlock implements ModInitializer {
     public static final Identifier ID_CHROMATICITY_BLOCK_ENTITY = new Identifier(MOD_ID, "chromaticity_block_entity");
     public static final Identifier ID_ITEM_GROUP = new Identifier(MOD_ID, MOD_ID);
     public static final Block CHROMATICITY_BLOCK = new BlockChromaticity(FabricBlockSettings.of(Material.METAL)
-            .strength(-1, 3600000).dropsNothing().nonOpaque());
+            .strength(-1, 3600000).dropsNothing().nonOpaque().allowsSpawning((state, world, pos, type) -> false));
     public static final Item CHROMATICITY_BLOCK_ITEM = new ItemBlockChromaticity();
     public static BlockEntityType<BlockEntityChromaticity> CHROMATICITY_BLOCK_ENTITY = new BlockEntityType<>(
             BlockEntityChromaticity::new, ImmutableSet.of(CHROMATICITY_BLOCK),
@@ -35,22 +35,22 @@ public class ChromaticityBlock implements ModInitializer {
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(ID_ITEM_GROUP)
             .icon(() -> new ItemStack(CHROMATICITY_BLOCK_ITEM))
             .appendItems(itemStacks -> {
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFF000000));
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFFFFFFFF));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFF000000));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFFFFFFFF));
 
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFFFF0000));
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFF00FF00));
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFF0000FF));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFFFF0000));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFF00FF00));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFF0000FF));
 
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFFFFFF00));
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFF00FFFF));
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFFFF00FF));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFFFFFF00));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFF00FFFF));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFFFF00FF));
 
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFF8800FF));
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFF88FFFF));
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFFFF88FF));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFF8800FF));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFF88FFFF));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFFFF88FF));
 
-                itemStacks.add(BlockChromaticity.createItemStackWithColor(0xFFBA54EF));
+                itemStacks.add(ItemBlockChromaticity.createWithColor(0xFFBA54EF));
             }).build();
 
     @Override

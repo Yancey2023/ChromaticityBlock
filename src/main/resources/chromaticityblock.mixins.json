@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "yancey.chromaticityblock.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "BlockDustParticleFactoryMixin",
+    "ParticleManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
