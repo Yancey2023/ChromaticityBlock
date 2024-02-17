@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "chromaticityblock",
+  "version": "${version}",
+  "name": "ChromaticityBlock",
+  "description": "Chromaticity block",
+  "authors": [
+    "Yancey"
+  ],
+  "contact": {
+    "repo": "https://github.com/Yancey666/ChromaticityBlock"
+  },
+  "license": "MIT",
+  "icon": "assets/chromaticityblock/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "yancey.chromaticityblock.client.ChromaticityBlockClient"
+    ],
+    "main": [
+      "yancey.chromaticityblock.ChromaticityBlock"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
