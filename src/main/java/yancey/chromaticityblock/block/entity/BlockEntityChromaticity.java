@@ -3,11 +3,8 @@ package yancey.chromaticityblock.block.entity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.util.registry.Registry;
 import yancey.chromaticityblock.ChromaticityBlock;
 import yancey.chromaticityblock.item.ItemBlockChromaticity;
 
@@ -16,23 +13,24 @@ public class BlockEntityChromaticity extends BlockEntity {
     public static final String KEY_COLOR = "color";
     private Integer color = null;
 
-    public BlockEntityChromaticity(BlockPos pos, BlockState state) {
-        super(ChromaticityBlock.CHROMATICITY_BLOCK_ENTITY, pos, state);
+    public BlockEntityChromaticity() {
+        super(ChromaticityBlock.CHROMATICITY_BLOCK_ENTITY);
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
         if (color == null) {
             color = 0xFF00FF00;
         }
         nbt.putInt(KEY_COLOR, color);
-        super.writeNbt(nbt);
+        return nbt;
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        color = ItemBlockChromaticity.getColorFromNBT(nbt);
-        super.readNbt(nbt);
+    public void fromTag(BlockState state, NbtCompound tag) {
+        super.fromTag(state, tag);
+        color = ItemBlockChromaticity.getColorFromNBT(tag);
     }
 
     public Integer getColor() {
@@ -46,14 +44,13 @@ public class BlockEntityChromaticity extends BlockEntity {
         }
     }
 
-    @Nullable
     @Override
-    public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+    public BlockEntityUpdateS2CPacket toUpdatePacket() {
+        return new BlockEntityUpdateS2CPacket(getPos(), Registry.BLOCK_ENTITY_TYPE.getRawId(getType()), writeNbt(new NbtCompound()));
     }
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+        return writeNbt(new NbtCompound());
     }
 }

@@ -1,11 +1,11 @@
 package yancey.chromaticityblock.client;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.impl.client.rendering.BuiltinItemRendererRegistryImpl;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -21,11 +21,11 @@ public class ChromaticityBlockClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        BlockEntityRendererRegistry.register(ChromaticityBlock.CHROMATICITY_BLOCK_ENTITY, ctx -> new BlockChromaticityRenderer());
+        BlockEntityRendererRegistry.INSTANCE.register(ChromaticityBlock.CHROMATICITY_BLOCK_ENTITY, BlockChromaticityRenderer::new);
         BuiltinItemRendererRegistryImpl.INSTANCE.register(ChromaticityBlock.CHROMATICITY_BLOCK_ITEM,
                 (stack, mode, matrices, vertexConsumers, light, overlay) -> {
                     matrices.push();
-                    if (mode != ModelTransformationMode.GUI) {
+                    if (mode != ModelTransformation.Mode.GUI) {
                         matrices.translate(0.5, 0.5, 0.5);
                         matrices.scale(0.3F, 0.3F, 0.3F);
                     }
