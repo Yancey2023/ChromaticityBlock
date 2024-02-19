@@ -20,7 +20,7 @@ public class ItemBlockChromaticity extends BlockItem {
         int color = getColorFromItemStack(stack);
         return Text.empty()
                 .append(super.getName(stack).copy().withColor(0xFF000000 | color))
-                .append(Text.literal(" #" + Integer.toHexString(color).toUpperCase()));
+                .append(String.format("#%08X", color));
     }
 
     public static int getColorFromItemStack(ItemStack stack) {
