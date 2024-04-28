@@ -6,6 +6,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import yancey.chromaticityblock.ChromaticityBlock;
@@ -21,15 +22,15 @@ public class BlockEntityChromaticity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         nbt.putInt(KEY_COLOR, color);
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registryLookup);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
+    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         color = ItemBlockChromaticity.getColorFromNBT(nbt);
-        super.readNbt(nbt);
+        super.readNbt(nbt, registryLookup);
     }
 
     public int getColor() {
@@ -50,8 +51,8 @@ public class BlockEntityChromaticity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+        return createNbt(registryLookup);
     }
 
     public static int getColorFromBlockEntity(BlockEntity blockEntity) {

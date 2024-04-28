@@ -2,8 +2,7 @@ package yancey.chromaticityblock;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
@@ -18,16 +17,19 @@ import yancey.chromaticityblock.block.BlockChromaticity;
 import yancey.chromaticityblock.block.entity.BlockEntityChromaticity;
 import yancey.chromaticityblock.item.ItemBlockChromaticity;
 
+import java.util.Set;
+
 public class ChromaticityBlock implements ModInitializer {
 
     public static final String MOD_ID = "chromaticityblock";
     public static final Identifier ID_CHROMATICITY_BLOCK = new Identifier(MOD_ID, "chromaticity_block");
     public static final Identifier ID_CHROMATICITY_BLOCK_ENTITY = new Identifier(MOD_ID, "chromaticity_block_entity");
     public static final Identifier ID_ITEM_GROUP = new Identifier(MOD_ID, MOD_ID);
-    public static final Block CHROMATICITY_BLOCK = new BlockChromaticity(FabricBlockSettings.create()
+    public static final Block CHROMATICITY_BLOCK = new BlockChromaticity(AbstractBlock.Settings.create()
             .strength(-1, 3600000).dropsNothing().nonOpaque().noBlockBreakParticles().pistonBehavior(PistonBehavior.BLOCK));
     public static final Item CHROMATICITY_BLOCK_ITEM = new ItemBlockChromaticity();
-    public static BlockEntityType<BlockEntityChromaticity> CHROMATICITY_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(BlockEntityChromaticity::new, CHROMATICITY_BLOCK).build();
+    public static BlockEntityType<BlockEntityChromaticity> CHROMATICITY_BLOCK_ENTITY = new BlockEntityType<>(
+            BlockEntityChromaticity::new, Set.of(CHROMATICITY_BLOCK), null);
     public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MOD_ID))
             .icon(() -> new ItemStack(CHROMATICITY_BLOCK_ITEM))

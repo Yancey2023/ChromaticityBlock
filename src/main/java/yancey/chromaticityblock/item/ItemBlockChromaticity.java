@@ -1,7 +1,9 @@
 package yancey.chromaticityblock.item;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -12,7 +14,7 @@ import yancey.chromaticityblock.block.entity.BlockEntityChromaticity;
 public class ItemBlockChromaticity extends BlockItem {
 
     public ItemBlockChromaticity() {
-        super(ChromaticityBlock.CHROMATICITY_BLOCK, new FabricItemSettings());
+        super(ChromaticityBlock.CHROMATICITY_BLOCK, new Item.Settings());
     }
 
     @Override
@@ -24,7 +26,7 @@ public class ItemBlockChromaticity extends BlockItem {
     }
 
     public static int getColorFromItemStack(ItemStack stack) {
-        return getColorFromNBT(BlockItem.getBlockEntityNbt(stack));
+        return getColorFromNBT(stack.getOrDefault(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.DEFAULT).getNbt());
     }
 
     public static int getColorFromNBT(NbtCompound nbt) {
@@ -39,7 +41,7 @@ public class ItemBlockChromaticity extends BlockItem {
         ItemStack itemStack = new ItemStack(ChromaticityBlock.CHROMATICITY_BLOCK_ITEM);
         NbtCompound nbtCompound = new NbtCompound();
         nbtCompound.putInt(BlockEntityChromaticity.KEY_COLOR, color);
-        BlockItem.setBlockEntityNbt(itemStack, ChromaticityBlock.CHROMATICITY_BLOCK_ENTITY, nbtCompound);
+        BlockItem.setBlockEntityData(itemStack, ChromaticityBlock.CHROMATICITY_BLOCK_ENTITY, nbtCompound);
         return itemStack;
     }
 
