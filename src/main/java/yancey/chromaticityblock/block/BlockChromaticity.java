@@ -30,14 +30,12 @@ public class BlockChromaticity extends Block implements BlockEntityProvider {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
     @Environment(EnvType.CLIENT)
-    @SuppressWarnings("deprecation")
     public float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
         return 1;
     }
