@@ -25,6 +25,7 @@ public class ItemBlockChromaticity extends BlockItem {
                 .append(String.format("#%08X", color));
     }
 
+    @SuppressWarnings("deprecation")
     public static int getColorFromItemStack(ItemStack stack) {
         return getColorFromNBT(stack.getOrDefault(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.DEFAULT).getNbt());
     }
