@@ -1,5 +1,7 @@
 package yancey.chromaticityblock.item;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.BlockItem;
@@ -13,6 +15,8 @@ import yancey.chromaticityblock.block.entity.BlockEntityChromaticity;
 
 public class ItemBlockChromaticity extends BlockItem {
 
+    public static final MapCodec<Integer> CODEC_COLOR = Codec.INT.fieldOf(BlockEntityChromaticity.KEY_COLOR);
+
     public ItemBlockChromaticity() {
         super(ChromaticityBlock.CHROMATICITY_BLOCK, new Item.Settings());
     }
@@ -25,9 +29,9 @@ public class ItemBlockChromaticity extends BlockItem {
                 .append(String.format("#%08X", color));
     }
 
-    @SuppressWarnings("deprecation")
     public static int getColorFromItemStack(ItemStack stack) {
-        return getColorFromNBT(stack.getOrDefault(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.DEFAULT).getNbt());
+        return stack.getOrDefault(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.DEFAULT)
+                .get(CODEC_COLOR).result().orElse(0xFF00FF00);
     }
 
     public static int getColorFromNBT(NbtCompound nbt) {

@@ -3,9 +3,9 @@ package yancey.chromaticityblock.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -18,9 +18,9 @@ import yancey.chromaticityblock.item.ItemBlockChromaticity;
 public class ChromaticityBlockClient implements ClientModInitializer {
 
     @Override
-    @SuppressWarnings({"deprecation", "resource"})
+    @SuppressWarnings("resource")
     public void onInitializeClient() {
-        BlockEntityRendererRegistry.register(ChromaticityBlock.CHROMATICITY_BLOCK_ENTITY, ctx -> new BlockChromaticityRenderer());
+        BlockEntityRendererFactories.register(ChromaticityBlock.CHROMATICITY_BLOCK_ENTITY, ctx -> new BlockChromaticityRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(ChromaticityBlock.CHROMATICITY_BLOCK_ITEM,
                 (stack, mode, matrices, vertexConsumers, light, overlay) -> {
                     matrices.push();
