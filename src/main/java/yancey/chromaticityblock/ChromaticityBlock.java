@@ -23,9 +23,9 @@ public class ChromaticityBlock implements ModInitializer {
 
     @SuppressWarnings("SpellCheckingInspection")
     public static final String MOD_ID = "chromaticityblock";
-    public static final Identifier ID_CHROMATICITY_BLOCK = new Identifier(MOD_ID, "chromaticity_block");
-    public static final Identifier ID_CHROMATICITY_BLOCK_ENTITY = new Identifier(MOD_ID, "chromaticity_block_entity");
-    public static final Identifier ID_ITEM_GROUP = new Identifier(MOD_ID, MOD_ID);
+    public static final Identifier ID_CHROMATICITY_BLOCK = Identifier.of(MOD_ID, "chromaticity_block");
+    public static final Identifier ID_CHROMATICITY_BLOCK_ENTITY = Identifier.of(MOD_ID, "chromaticity_block_entity");
+    public static final Identifier ID_ITEM_GROUP = Identifier.of(MOD_ID, MOD_ID);
     public static final Block CHROMATICITY_BLOCK = new BlockChromaticity(AbstractBlock.Settings.create()
             .strength(-1, 3600000).dropsNothing().nonOpaque().noBlockBreakParticles().pistonBehavior(PistonBehavior.BLOCK));
     public static final Item CHROMATICITY_BLOCK_ITEM = new ItemBlockChromaticity();
