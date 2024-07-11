@@ -4,7 +4,7 @@
 
 这个模组添加了色度方块，它的渲染不会收到光照的影响，特别适合方便色度抠图。
 
-支持的MC版本：`1.12.2-forge`，`1.16.5-fabric`，`1.20.4-fabric`
+支持的MC版本：`1.12.2-forge`，`1.16.5-fabric`，`1.20.4-fabric`，`1.20.5-fabric`，`1.20.6-fabric`，`1.21-fabric`
 
 ![icon.png](img/icon.png)
 

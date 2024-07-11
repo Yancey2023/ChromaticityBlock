@@ -4,7 +4,7 @@ English | [简体中文](README_CN.md)
 
 This mod adds chromaticity block, whose rendering is not affected by lighting, making it particularly suitable for convenient chromaticity cutouts.
 
-Supported minecraft versions: `1.12.2-forge`，`1.16.5-fabric`，`1.20.4-fabric`
+Supported minecraft versions: `1.12.2-forge`，`1.16.5-fabric`，`1.20.4-fabric`，`1.20.5-fabric`，`1.20.6-fabric`，`1.21-fabric`
 
 ![icon.png](img/icon.png)
 

@@ -21,6 +21,7 @@ import java.util.Set;
 
 public class ChromaticityBlock implements ModInitializer {
 
+    @SuppressWarnings("SpellCheckingInspection")
     public static final String MOD_ID = "chromaticityblock";
     public static final Identifier ID_CHROMATICITY_BLOCK = new Identifier(MOD_ID, "chromaticity_block");
     public static final Identifier ID_CHROMATICITY_BLOCK_ENTITY = new Identifier(MOD_ID, "chromaticity_block_entity");
